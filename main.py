@@ -7,7 +7,7 @@ def display_question(question, options, correct_answer):
     
     if st.button("Submit Answer"):
         if user_choice == correct_answer:
-            st.success("Correct! 🎉")
+            st.success("Correct!")
         else:
             st.error(f"Incorrect. The correct answer is: {correct_answer}")
 
