@@ -1,13 +1,13 @@
 import streamlit as st
 
 # Function to display a question and options
-def display_question(question, options, correct_answer):
+def display_question(question, options, correct_answer, question_id):
     st.write(question)
-    user_choice = st.radio("Select an answer:", options)
+    user_choice = st.radio("Select an answer:", options, key=f"radio_{question_id}")
     
-    if st.button("Submit Answer"):
+    if st.button("Submit Answer", key=f"submit_{question_id}"):
         if user_choice == correct_answer:
-            st.success("Correct!")
+            st.success("Correct! 🎉")
         else:
             st.error(f"Incorrect. The correct answer is: {correct_answer}")
 
@@ -36,4 +36,4 @@ questions = [
 # Display the quiz
 for i, q in enumerate(questions):
     st.subheader(f"Question {i + 1}")
-    display_question(q["question"], q["options"], q["answer"])
+    display_question(q["question"], q["options"], q["answer"], question_id=i)
