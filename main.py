@@ -4,6 +4,12 @@ import os
 import hashlib
 import dropbox
 from datetime import datetime
+import uuid
+
+# Generate a unique ID for the session if it doesn't already exist
+if 'unique_id' not in st.session_state:
+    # Generate a unique ID based on UUID
+    st.session_state.unique_id = str(uuid.uuid4())
 
 # Get the current date
 current_date = datetime.now()
@@ -68,8 +74,7 @@ def is_duplicate_submission(ip_hash):
 st.title("Attendance Form " + formatted_date)
 
 # Get the user IP (simulated by session state)
-ip_address = st.query_params.get("ip", ["unknown"])[0]
-ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
+ip_hash = st.session_state.unique_id 
 
 # Load names for the dropdown
 names_list = load_names()
