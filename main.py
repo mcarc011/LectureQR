@@ -4,7 +4,7 @@ import os
 import hashlib
 
 # Define files for attendance
-ATTENDANCE_FILE = '\\static\\'+"attendance.csv"
+ATTENDANCE_FILE = "attendance.csv"
 NAMES_FILE = "MWlist.csv"
 
 # Load names from the text file
