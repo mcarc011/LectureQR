@@ -78,24 +78,26 @@ else:
     # Attendance form
     st.write("Please mark your attendance below:")
 
-    if is_duplicate_submission(ip_hash):
-        st.warning("You have already submitted your attendance.")
-    else:
-        with st.form("attendance_form"):
-            name = st.selectbox("Select your name", names_list)
-            status = "Present"
+    # if is_duplicate_submission(ip_hash):
+    #     st.warning("You have already submitted your attendance.")
+    # else:
+    with st.form("attendance_form"):
+        name = st.selectbox("Select your name", names_list)
+        status = "Present"
 
-            submitted = st.form_submit_button("Submit")
+        submitted = st.form_submit_button("Submit")
 
-            if submitted:
-                if name and status:
-                    save_attendance(name, status, ip_hash)
-                    st.success("Your attendance has been recorded!")
-                else:
-                    st.error("Please fill out all fields.")
+        if submitted:
+            if name and status:
+                save_attendance(name, status, ip_hash)
+                st.success("Your attendance has been recorded!")
+            else:
+                st.error("Please fill out all fields.")
 
 # Show attendance records (optional)
 st.write("---")
 st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
+attendance_df['Student Num'] = [names_list.index(ni)+1 for ni in attendance_df['Name']]
+attendance_df.sort_values(by='Student Num')
 st.dataframe(attendance_df)
