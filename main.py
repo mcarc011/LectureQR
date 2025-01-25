@@ -15,10 +15,7 @@ day_of_week = current_date.strftime("%A")
 
 # Define files for attendance
 ATTENDANCE_FILE = "attendance"+formatted_date+".csv"
-if day_of_week in ['Monday','Wednesday']:
-    ROSTER_FILE = "MWlist.csv"
-ROSTER_FILE = "TThlist.csv"
-
+NAMES_FILE = "MWlist.csv"
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
@@ -36,8 +33,8 @@ def upload_to_dropbox(file_path, dropbox_path):
 
 # Load names from the text file
 def load_names():
-    if os.path.exists(ROSTER_FILE):
-        with open(ROSTER_FILE, "r") as file:
+    if os.path.exists(NAMES_FILE):
+        with open(NAMES_FILE, "r") as file:
             return [line.strip() for line in file.readlines()]
     else:
         return []
@@ -73,7 +70,7 @@ ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
 # Load names for the dropdown
 names_list = load_names()
 if not names_list:
-    st.error(ROSTER_FILE)
+    st.error("No names found in the attendance sheet. Please ensure 'names.txt' exists and contains names.")
 else:
     # Attendance form
     st.write("Please mark your attendance below:")
