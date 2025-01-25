@@ -36,7 +36,7 @@ def is_duplicate_submission(ip_hash):
 st.title("Attendance Form")
 
 # Get the user IP (simulated by session state)
-ip_address = st.experimental_get_query_params().get("ip", ["unknown"])[0]
+ip_address = st.query_params.get("ip", ["unknown"])[0]
 ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
 
 # Load names for the dropdown
