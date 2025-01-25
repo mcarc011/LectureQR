@@ -4,7 +4,7 @@ import os
 import hashlib
 
 # Define files for attendance
-ATTENDANCE_FILE = "attendance.csv"
+ATTENDANCE_FILE = '\\static\\'+"attendance.csv"
 NAMES_FILE = "MWlist.csv"
 
 # Load names from the text file
@@ -26,7 +26,7 @@ def save_attendance(name, status, ip_hash):
     attendance = load_attendance()
     new_data = pd.DataFrame([{"Name": name, "Status": status, "IP_Hash": ip_hash}])
     attendance = pd.concat([attendance, new_data], ignore_index=True)
-    attendance.to_csv('\\static\\'+ATTENDANCE_FILE, index=False)
+    attendance.to_csv(ATTENDANCE_FILE, index=False)
 
 def is_duplicate_submission(ip_hash):
     attendance = load_attendance()
