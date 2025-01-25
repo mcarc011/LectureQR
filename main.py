@@ -10,11 +10,14 @@ current_date = datetime.now()
 
 # Format the date as mm-dd-yy
 formatted_date = current_date.strftime("%m-%d-%y")
+day_of_week = current_date.strftime("%A")
 
 
 # Define files for attendance
 ATTENDANCE_FILE = "attendance"+formatted_date+".csv"
-NAMES_FILE = "MWlist.csv"
+if day_of_week in ['Monday','Wednesday']:
+    NAMES_FILE = "MWlist.csv"
+NAMES_FILE = 'TThlist.csv'
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
