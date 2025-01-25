@@ -32,9 +32,8 @@ def upload_to_dropbox(file_path, dropbox_path):
         dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
         with open(file_path, "rb") as f:
             dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
-        st.success(f"Attendance file uploaded to Dropbox: {dropbox_path}")
-    except Exception as e:
-        st.error(f"Failed to upload to Dropbox: {e}")
+    except:
+        pass
 
 
 # Load names from the text file
