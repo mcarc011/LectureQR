@@ -52,10 +52,7 @@ else:
     else:
         with st.form("attendance_form"):
             name = st.selectbox("Select your name", names_list)
-            status = st.selectbox(
-                "Attendance Status",
-                ("Present", "Absent")
-            )
+            status = "Present"
 
             submitted = st.form_submit_button("Submit")
 
