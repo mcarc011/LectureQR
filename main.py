@@ -10,7 +10,7 @@ ATTENDANCE_FILE = "attendance.csv"
 NAMES_FILE = "MWlist.csv"
 
 # Add your Dropbox access token
-DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
+DROPBOX_ACCESS_TOKEN = st.secrets['dbkey']
 
 # Upload the file to Dropbox
 def upload_to_dropbox(file_path, dropbox_path):
