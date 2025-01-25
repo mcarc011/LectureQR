@@ -20,8 +20,6 @@ if day_of_week in ['Monday','Wednesday']:
 NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
 
-st.write(os.listdir())
-
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
