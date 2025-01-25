@@ -26,7 +26,7 @@ def save_attendance(name, status, ip_hash):
     attendance = load_attendance()
     new_data = pd.DataFrame([{"Name": name, "Status": status, "IP_Hash": ip_hash}])
     attendance = pd.concat([attendance, new_data], ignore_index=True)
-    attendance.to_csv(ATTENDANCE_FILE, index=False)
+    attendance.to_csv('\\static\\'+ATTENDANCE_FILE, index=False)
 
 def is_duplicate_submission(ip_hash):
     attendance = load_attendance()
@@ -36,7 +36,7 @@ def is_duplicate_submission(ip_hash):
 st.title("Attendance Form")
 
 # Get the user IP (simulated by session state)
-ip_address = st.query_params().get("ip", ["unknown"])[0]
+ip_address = st.experimental_get_query_params().get("ip", ["unknown"])[0]
 ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
 
 # Load names for the dropdown
