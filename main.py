@@ -99,5 +99,4 @@ st.write("---")
 st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
 attendance_df['Student Num'] = [names_list.index(ni)+1 for ni in attendance_df['Name']]
-attendance_df.set_index(attendance_df.columns[0])
-st.dataframe(attendance_df.sort_values(by='Student Num'))
+st.markdown(attendance_df.sort_values(by='Student Num').style.hide(axis="index").to_html(), unsafe_allow_html=True)
