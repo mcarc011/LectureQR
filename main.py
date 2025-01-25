@@ -65,7 +65,7 @@ def is_duplicate_submission(ip_hash):
     return ip_hash in attendance["IP_Hash"].values
 
 # App title
-st.title("Attendance Form " + current_date.strftime("%H:%M:%S"))
+st.title(current_date.strftime("%H:%M:%S"))
 
 # Get the user IP (simulated by session state)
 ip_address = st.query_params.get("ip", ["unknown"])[0]
