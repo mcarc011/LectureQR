@@ -1,70 +1,73 @@
 import streamlit as st
+import pandas as pd
+import os
+import hashlib
 
-# Initialize session state for user answers and results
-if "results" not in st.session_state:
-    st.session_state["results"] = []  # List to store answers from multiple users
-if "current_answers" not in st.session_state:
-    st.session_state["current_answers"] = {}  # Store answers for the current user
+# Define files for attendance
+ATTENDANCE_FILE = "attendance.csv"
+NAMES_FILE = "names.txt"
 
-# Function to display a question and options
-def display_question(question, options, correct_answer, question_id):
-    st.write(question)
-    user_choice = st.radio("Select an answer:", options, key=f"radio_{question_id}")
-    st.session_state["current_answers"][question_id] = user_choice
+# Load names from the text file
+def load_names():
+    if os.path.exists(NAMES_FILE):
+        with open(NAMES_FILE, "r") as file:
+            return [line.strip() for line in file.readlines()]
+    else:
+        return []
+
+# Initialize the app
+def load_attendance():
+    if os.path.exists(ATTENDANCE_FILE):
+        return pd.read_csv(ATTENDANCE_FILE)
+    else:
+        return pd.DataFrame(columns=["Name", "Status", "IP_Hash"])
+
+def save_attendance(name, status, ip_hash):
+    attendance = load_attendance()
+    new_data = pd.DataFrame([{"Name": name, "Status": status, "IP_Hash": ip_hash}])
+    attendance = pd.concat([attendance, new_data], ignore_index=True)
+    attendance.to_csv(ATTENDANCE_FILE, index=False)
+
+def is_duplicate_submission(ip_hash):
+    attendance = load_attendance()
+    return ip_hash in attendance["IP_Hash"].values
 
 # App title
-st.title("Multiple Choice Quiz")
+st.title("Attendance Form")
 
-# Define questions and answers
-questions = [
-    {
-        "question": "What is the capital of France?",
-        "options": ["Berlin", "Madrid", "Paris", "Rome"],
-        "answer": "Paris",
-    },
-    {
-        "question": "Which planet is known as the Red Planet?",
-        "options": ["Earth", "Mars", "Jupiter", "Saturn"],
-        "answer": "Mars",
-    },
-    {
-        "question": "Who wrote 'To Kill a Mockingbird'?",
-        "options": ["Harper Lee", "J.K. Rowling", "Ernest Hemingway", "Mark Twain"],
-        "answer": "Harper Lee",
-    },
-]
+# Get the user IP (simulated by session state)
+ip_address = st.experimental_get_query_params().get("ip", ["unknown"])[0]
+ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
 
-# Navigation: Quiz Page or Results Page
-page = st.sidebar.selectbox("Navigation", ["Take Quiz", "View Results"])
+# Load names for the dropdown
+names_list = load_names()
+if not names_list:
+    st.error("No names found in the attendance sheet. Please ensure 'names.txt' exists and contains names.")
+else:
+    # Attendance form
+    st.write("Please mark your attendance below:")
 
-if page == "Take Quiz":
-    st.header("Take Quiz")
-    for i, q in enumerate(questions):
-        st.subheader(f"Question {i + 1}")
-        display_question(q["question"], q["options"], q["answer"], question_id=i)
-    
-    if st.button("Submit Quiz"):
-        correct_count = sum(
-            st.session_state["current_answers"][i] == q["answer"] for i, q in enumerate(questions)
-        )
-        total_questions = len(questions)
-        
-        # Store results for the current user
-        st.session_state["results"].append({
-            "user": f"User {len(st.session_state['results']) + 1}",
-            "correct": correct_count,
-            "total": total_questions,
-        })
-        
-        # Reset current answers for a new user
-        st.session_state["current_answers"] = {}
-        st.success(f"Your score: {correct_count}/{total_questions}")
-        st.info("Your results have been saved. Go to 'View Results' to see everyone's scores.")
-
-elif page == "View Results":
-    st.header("Quiz Results")
-    if not st.session_state["results"]:
-        st.info("No results yet. Ask users to take the quiz.")
+    if is_duplicate_submission(ip_hash):
+        st.warning("You have already submitted your attendance.")
     else:
-        # Display results as a table
-        st.table(st.session_state["results"])
+        with st.form("attendance_form"):
+            name = st.selectbox("Select your name", names_list)
+            status = st.selectbox(
+                "Attendance Status",
+                ("Present", "Absent")
+            )
+
+            submitted = st.form_submit_button("Submit")
+
+            if submitted:
+                if name and status:
+                    save_attendance(name, status, ip_hash)
+                    st.success("Your attendance has been recorded!")
+                else:
+                    st.error("Please fill out all fields.")
+
+# Show attendance records (optional)
+st.write("---")
+st.subheader("Attendance Records")
+attendance_df = load_attendance().drop(columns=["IP_Hash"])
+st.dataframe(attendance_df)
