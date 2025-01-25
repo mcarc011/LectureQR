@@ -2,10 +2,24 @@ import streamlit as st
 import pandas as pd
 import os
 import hashlib
+import dropbox
+
 
 # Define files for attendance
 ATTENDANCE_FILE = "attendance.csv"
 NAMES_FILE = "MWlist.csv"
+
+
+# Upload the file to Dropbox
+def upload_to_dropbox(file_path, dropbox_path):
+    try:
+        dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+        with open(file_path, "rb") as f:
+            dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
+        st.success(f"Attendance file uploaded to Dropbox: {dropbox_path}")
+    except Exception as e:
+        st.error(f"Failed to upload to Dropbox: {e}")
+
 
 # Load names from the text file
 def load_names():
@@ -27,6 +41,10 @@ def save_attendance(name, status, ip_hash):
     new_data = pd.DataFrame([{"Name": name, "Status": status, "IP_Hash": ip_hash}])
     attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
+
+    # Automatically upload to Dropbox
+    upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+
 
 def is_duplicate_submission(ip_hash):
     attendance = load_attendance()
