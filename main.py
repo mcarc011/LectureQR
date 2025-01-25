@@ -12,7 +12,6 @@ current_date = datetime.now()
 formatted_date = current_date.strftime("%m-%d-%y")
 day_of_week = current_date.strftime("%A")
 
-
 # Define files for attendance
 NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
@@ -66,7 +65,7 @@ def is_duplicate_submission(ip_hash):
     return ip_hash in attendance["IP_Hash"].values
 
 # App title
-st.title("Attendance Form")
+st.title("Attendance Form " + formatted_date)
 
 # Get the user IP (simulated by session state)
 ip_address = st.query_params.get("ip", ["unknown"])[0]
