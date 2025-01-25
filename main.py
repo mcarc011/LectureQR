@@ -89,7 +89,7 @@ else:
     else:
         with st.form("attendance_form"):
             attendance = load_attendance()
-            name = st.selectbox("Select your name", [ni for ni in names_list if ni not in attendance['Student Name']])
+            name = st.selectbox("Select your name", [ni for ni in names_list if ni not in attendance['Student Name'].values])
             status = "Present"
 
             submitted = st.form_submit_button("Submit")
