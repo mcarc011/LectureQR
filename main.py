@@ -88,7 +88,8 @@ else:
         st.warning("You have already submitted your attendance.")
     else:
         with st.form("attendance_form"):
-            name = st.selectbox("Select your name", names_list)
+            attendance = load_attendance()
+            name = st.selectbox("Select your name", [ni for ni in names_list if ni not in attendance['Student Name']])
             status = "Present"
 
             submitted = st.form_submit_button("Submit")
