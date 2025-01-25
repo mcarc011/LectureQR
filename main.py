@@ -14,11 +14,14 @@ day_of_week = current_date.strftime("%A")
 
 
 # Define files for attendance
+NAMES_FILE = "TThList.csv"
+ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
 if day_of_week in ['Monday','Wednesday']:
     NAMES_FILE = "MWlist.csv"
     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-NAMES_FILE = "TThList.csv"
-ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
+#if day_of_week=='Wednesday' and current_date.hour >= 18:
+NAMES_FILE = "lablist.csv"
+ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
@@ -78,21 +81,21 @@ else:
     # Attendance form
     st.write("Please mark your attendance below:")
 
-    # if is_duplicate_submission(ip_hash):
-    #     st.warning("You have already submitted your attendance.")
-    # else:
-    with st.form("attendance_form"):
-        name = st.selectbox("Select your name", names_list)
-        status = "Present"
+    if is_duplicate_submission(ip_hash):
+        st.warning("You have already submitted your attendance.")
+    else:
+        with st.form("attendance_form"):
+            name = st.selectbox("Select your name", names_list)
+            status = "Present"
 
-        submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Submit")
 
-        if submitted:
-            if name and status:
-                save_attendance(name, status, ip_hash)
-                st.success("Your attendance has been recorded!")
-            else:
-                st.error("Please fill out all fields.")
+            if submitted:
+                if name and status:
+                    save_attendance(name, status, ip_hash)
+                    st.success("Your attendance has been recorded!")
+                else:
+                    st.error("Please fill out all fields.")
 
 # Show attendance records (optional)
 st.write("---")
