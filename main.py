@@ -19,9 +19,9 @@ ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
 if day_of_week in ['Monday','Wednesday']:
     NAMES_FILE = "MWlist.csv"
     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-#if day_of_week=='Wednesday' and current_date.hour >= 18:
-NAMES_FILE = "lablist.csv"
-ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
+if day_of_week=='Wednesday' and current_date.hour >= 18:
+    NAMES_FILE = "lablist.csv"
+    ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
@@ -101,5 +101,5 @@ else:
 st.write("---")
 st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
-attendance_df['Student Num'] = [names_list.index(ni)+1 for ni in attendance_df['Name']]
+attendance_df['Student Num'] = [names_list.index(ni)+1 for ni in attendance_df['Student Name']]
 st.markdown(attendance_df.sort_values(by='Student Num').style.hide(axis="index").to_html(), unsafe_allow_html=True)
