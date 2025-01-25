@@ -17,9 +17,10 @@ day_of_week = current_date.strftime("%A")
 if day_of_week in ['Monday','Wednesday']:
     NAMES_FILE = "MWlist.csv"
     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-NAMES_FILE = "MWlist.csv"
+NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
 
+print(os.listdir)
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
