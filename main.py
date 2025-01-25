@@ -51,7 +51,7 @@ def load_attendance():
 
 def save_attendance(name, status, ip_hash):
     attendance = load_attendance()
-    new_data = pd.DataFrame([{"Name": name, "Status": status, "IP_Hash": ip_hash}])
+    new_data = pd.DataFrame([{"Student Name": name, "Status": status, "IP_Hash": ip_hash}])
     attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
@@ -99,5 +99,4 @@ st.write("---")
 st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
 attendance_df['Student Num'] = [names_list.index(ni)+1 for ni in attendance_df['Name']]
-attendance_df.sort_values(by='Student Num')
-st.dataframe(attendance_df)
+st.dataframe(attendance_df.sort_values(by='Student Num'))
