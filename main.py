@@ -73,7 +73,7 @@ ip_hash = hashlib.sha256(ip_address.encode()).hexdigest()
 # Load names for the dropdown
 names_list = load_names()
 if not names_list:
-    st.error("No names found in the attendance sheet. Please ensure 'names.txt' exists and contains names.")
+    st.error(ROSTER_FILE)
 else:
     # Attendance form
     st.write("Please mark your attendance below:")
