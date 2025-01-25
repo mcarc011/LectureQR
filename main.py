@@ -5,7 +5,7 @@ import hashlib
 
 # Define files for attendance
 ATTENDANCE_FILE = "attendance.csv"
-NAMES_FILE = "names.txt"
+NAMES_FILE = "MWlist.csv"
 
 # Load names from the text file
 def load_names():
