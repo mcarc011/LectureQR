@@ -3,10 +3,17 @@ import pandas as pd
 import os
 import hashlib
 import dropbox
+from datetime import datetime
+
+# Get the current date
+current_date = datetime.now()
+
+# Format the date as mm-dd-yy
+formatted_date = current_date.strftime("%m-%d-%y")
 
 
 # Define files for attendance
-ATTENDANCE_FILE = "attendance.csv"
+ATTENDANCE_FILE = "attendance"+formatted_date+".csv"
 NAMES_FILE = "MWlist.csv"
 
 # Add your Dropbox access token
