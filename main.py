@@ -16,8 +16,8 @@ day_of_week = current_date.strftime("%A")
 # Define files for attendance
 ATTENDANCE_FILE = "attendance"+formatted_date+".csv"
 if day_of_week in ['Monday','Wednesday']:
-    NAMES_FILE = "MWlist.csv"
-NAMES_FILE = "TThlist.csv"
+    ROSTER_FILE = "MWlist.csv"
+ROSTER_FILE = "TThlist.csv"
 
 
 # Add your Dropbox access token
@@ -36,8 +36,8 @@ def upload_to_dropbox(file_path, dropbox_path):
 
 # Load names from the text file
 def load_names():
-    if os.path.exists(NAMES_FILE):
-        with open(NAMES_FILE, "r") as file:
+    if os.path.exists(ROSTER_FILE):
+        with open(ROSTER_FILE, "r") as file:
             return [line.strip() for line in file.readlines()]
     else:
         return []
