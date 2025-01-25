@@ -19,9 +19,9 @@ ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
 if day_of_week in ['Monday','Wednesday']:
     NAMES_FILE = "MWlist.csv"
     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-#if day_of_week=='Wednesday' and current_date.hour >= 18:
-NAMES_FILE = "lablist.csv"
-ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
+if day_of_week=='Wednesday' and current_date.hour >= 18:
+    NAMES_FILE = "lablist.csv"
+    ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
