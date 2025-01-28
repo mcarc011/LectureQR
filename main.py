@@ -15,20 +15,19 @@ if 'unique_id' not in st.session_state:
 current_date = datetime.now()
 
 # Format the date as mm-dd-yy
-formatted_date = current_date.strftime("%m-%d-%y")
+formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
+st.write(current_date)
+# Define files for attendance
+NAMES_FILE = "TThList.csv"
+ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
+if day_of_week in ['Monday','Wednesday']:
+    NAMES_FILE = "MWlist.csv"
+    ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
+if day_of_week=='Wednesday' and current_date.hour >= 18:
+    NAMES_FILE = "lablist.csv"
+    ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
-# # Define files for attendance
-# NAMES_FILE = "TThList.csv"
-# ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
-# if day_of_week in ['Monday','Wednesday']:
-#     NAMES_FILE = "MWlist.csv"
-#     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-# if day_of_week=='Wednesday' and current_date.hour >= 18:
-#     NAMES_FILE = "lablist.csv"
-#     ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
-NAMES_FILE = "MWlist.csv"
-ATTENDANCE_FILE = "MWattendance01-27-25.csv"
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
