@@ -33,12 +33,12 @@ DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
 # Upload the file to Dropbox
 def upload_to_dropbox(file_path, dropbox_path):
-    try:
-        dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
-        with open(file_path, "rb") as f:
-            dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
-    except:
-        pass
+    #try:
+    dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+    with open(file_path, "rb") as f:
+        dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
+    #except:
+    #    pass
 
 
 # Load names from the text file
