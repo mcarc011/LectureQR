@@ -29,13 +29,12 @@ if day_of_week=='Wednesday' and current_date.hour >= 18:
     ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
 # Add your Dropbox access token
-app_key = st.secrets['database']['dbkey']
-app_secret = st.secrets['database']['dbsecret']
+DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
 # Upload the file to Dropbox
 def upload_to_dropbox(file_path, dropbox_path):
     try:
-        dbx = dropbox.Dropbox(app_key + ':' + app_secret)
+        dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
         with open(file_path, "rb") as f:
             dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
     except:
@@ -63,8 +62,8 @@ def save_attendance(name, status, ip_hash):
     attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
-    # Automatically upload to Dropbox
-    upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+    # # Automatically upload to Dropbox
+    # upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
 
 
 def is_duplicate_submission(ip_hash):
