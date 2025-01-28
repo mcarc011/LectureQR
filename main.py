@@ -62,8 +62,8 @@ def save_attendance(name, status, ip_hash):
     attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
-    # # Automatically upload to Dropbox
-    # upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+    # Automatically upload to Dropbox
+    upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
 
 
 def is_duplicate_submission(ip_hash):
