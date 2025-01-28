@@ -37,7 +37,7 @@ def upload_to_dropbox(file_path, dropbox_path):
         dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
         for file_path in os.listdir():
             with open(file_path, "rb") as f:
-                dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
+                dbx.files_upload(f.read(), file_path, mode=dropbox.files.WriteMode("overwrite"))
     except:
         pass
 
