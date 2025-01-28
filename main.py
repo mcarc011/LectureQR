@@ -29,12 +29,13 @@ if day_of_week=='Wednesday' and current_date.hour >= 18:
     ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
 
 # Add your Dropbox access token
-DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
+app_key = st.secrets['database']['dbkey']
+app_secret = st.secrets['database']['dbsecret']
 
 # Upload the file to Dropbox
 def upload_to_dropbox(file_path, dropbox_path):
     try:
-        dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
+        dbx = dropbox.Dropbox(app_key + ':' + app_secret)
         with open(file_path, "rb") as f:
             dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
     except:
