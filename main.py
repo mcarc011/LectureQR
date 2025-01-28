@@ -36,7 +36,7 @@ def upload_to_dropbox(file_path, dropbox_path):
     try:
         dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
         for fname in os.listdir():
-            st.write('oops')
+            
             with open(fname, "rb") as f:
                 dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
     except:
@@ -74,6 +74,9 @@ def is_duplicate_submission(ip_hash):
 
 # App title
 st.title("Attendance Form " + formatted_date)
+
+for f in os.listdir():
+    st.write(f)
 
 # Get the user IP (simulated by session state)
 ip_hash = st.session_state.unique_id 
