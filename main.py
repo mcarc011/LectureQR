@@ -62,17 +62,17 @@ def save_attendance(name, status, ip_hash):
     attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
-    # Automatically upload to Dropbox
-    if DROPBOX_ACCESS_TOKEN !='':
-        upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
-
-
 def is_duplicate_submission(ip_hash):
     attendance = load_attendance()
     return ip_hash in attendance["IP_Hash"].values
 
 # App title
 st.title("Attendance Form " + formatted_date)
+
+# Automatically upload to Dropbox
+if DROPBOX_ACCESS_TOKEN !='':
+    upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+
 
 # Get the user IP (simulated by session state)
 ip_hash = st.session_state.unique_id 
