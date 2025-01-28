@@ -76,7 +76,7 @@ def is_duplicate_submission(ip_hash):
 st.title("Attendance Form " + formatted_date)
 
 for f in os.listdir():
-    st.write(f)
+    st.write('asdf')
 
 # Get the user IP (simulated by session state)
 ip_hash = st.session_state.unique_id 
