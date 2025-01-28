@@ -71,10 +71,7 @@ st.title("Attendance Form " + formatted_date)
 
 # Automatically upload to Dropbox
 if DROPBOX_ACCESS_TOKEN !='':
-    st.write('upload')
     upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
-else:
-    st.write('not')
 
 
 # Get the user IP (simulated by session state)
