@@ -63,7 +63,8 @@ def save_attendance(name, status, ip_hash):
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
     # Automatically upload to Dropbox
-    upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+    if DROPBOX_ACCESS_TOKEN !='':
+        upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
 
 
 def is_duplicate_submission(ip_hash):
