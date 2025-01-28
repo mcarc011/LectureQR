@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import hashlib
 import dropbox
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
 
 # Generate a unique ID for the session if it doesn't already exist
@@ -12,12 +12,12 @@ if 'unique_id' not in st.session_state:
     st.session_state.unique_id = str(uuid.uuid4())
 
 # Get the current date
-current_date = datetime.now()
+current_date = datetime.now()-timedelta(hours=5)
 
 # Format the date as mm-dd-yy
 formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
-st.write(current_date)
+#st.write(current_date)
 # Define files for attendance
 NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
