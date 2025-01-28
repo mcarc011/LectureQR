@@ -18,16 +18,17 @@ current_date = datetime.now()
 formatted_date = current_date.strftime("%m-%d-%y")
 day_of_week = current_date.strftime("%A")
 
-# Define files for attendance
-NAMES_FILE = "TThList.csv"
-ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
-if day_of_week in ['Monday','Wednesday']:
-    NAMES_FILE = "MWlist.csv"
-    ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
-if day_of_week=='Wednesday' and current_date.hour >= 18:
-    NAMES_FILE = "lablist.csv"
-    ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
-
+# # Define files for attendance
+# NAMES_FILE = "TThList.csv"
+# ATTENDANCE_FILE = "TThattendance"+formatted_date+".csv"
+# if day_of_week in ['Monday','Wednesday']:
+#     NAMES_FILE = "MWlist.csv"
+#     ATTENDANCE_FILE = "MWattendance"+formatted_date+".csv"
+# if day_of_week=='Wednesday' and current_date.hour >= 18:
+#     NAMES_FILE = "lablist.csv"
+#     ATTENDANCE_FILE = "labattendance"+formatted_date+".csv"
+NAMES_FILE = "MWlist.csv"
+ATTENDANCE_FILE = "MWattendance01-27-25.csv"
 # Add your Dropbox access token
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
@@ -35,11 +36,8 @@ DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 def upload_to_dropbox(file_path, dropbox_path):
     try:
         dbx = dropbox.Dropbox(DROPBOX_ACCESS_TOKEN)
-        st.write(os.listdir())
-        for file_path in os.listdir():
-            dropbox_path = f"/{file_path}"
-            with open(file_path, "rb") as f:
-                dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
+        with open(file_path, "rb") as f:
+            dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
     except:
         pass
 
