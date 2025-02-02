@@ -62,6 +62,10 @@ def save_attendance(name, status, ip_hash):
         attendance = pd.concat([attendance, new_data], ignore_index=True)
     attendance.to_csv(ATTENDANCE_FILE, index=False)
 
+    # Auto-upload to Dropbox
+    if DROPBOX_ACCESS_TOKEN != '':
+        upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
+        
 # Check submission status
 def get_submission_status(ip_hash):
     attendance = load_attendance()
@@ -70,7 +74,6 @@ def get_submission_status(ip_hash):
 
 # App title
 st.title("Attendance Form " + formatted_date)
-
 # Auto-upload to Dropbox
 if DROPBOX_ACCESS_TOKEN != '':
     upload_to_dropbox(ATTENDANCE_FILE, f"/{ATTENDANCE_FILE}")
