@@ -64,8 +64,9 @@ def save_attendance(name, status, ip_hash):
 def get_submission_status(ip_hash):
     attendance = load_attendance()
     match = attendance[attendance['IP_Hash'] == ip_hash]
-    if match['Status'].values[0]=='Absent':
-        return 'Present'
+    if not match.empty:
+        if match['Status'].values[0]=='Absent':
+            return 'Present'
     return match['Status'].values[0] if not match.empty else None
 
 # App title
