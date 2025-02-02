@@ -96,7 +96,7 @@ else:
 
         if submitted:
             save_attendance(name, status, ip_hash)
-            st.success(f"Your attendance has been marked:  '{name}' is '{status}'!")
+            st.success(f"Your attendance has been marked:  {name} is {status}!")
 
 # Display attendance records
 st.write("---")
