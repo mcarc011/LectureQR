@@ -54,7 +54,9 @@ def load_attendance():
 def save_attendance(name, status, ip_hash):
     attendance = load_attendance()
     if name in attendance['Student Name'].values:
-        attendance.loc[attendance['Student Name'] == name, ['Status', 'IP_Hash']] = [status, ip_hash]
+        current_status = attendance.loc[attendance['Student Name'] == name, 'Status'].values[0]
+        new_status = "Absent" if current_status == "Present" else "Present"
+        attendance.loc[attendance['Student Name'] == name, ['Status', 'IP_Hash']] = [new_status, ip_hash]
     else:
         new_data = pd.DataFrame([{"Student Name": name, "Status": status, "IP_Hash": ip_hash}])
         attendance = pd.concat([attendance, new_data], ignore_index=True)
@@ -64,9 +66,6 @@ def save_attendance(name, status, ip_hash):
 def get_submission_status(ip_hash):
     attendance = load_attendance()
     match = attendance[attendance['IP_Hash'] == ip_hash]
-    if not match.empty:
-        if match['Status'].values[0]=='Absent':
-            return 'Present'
     return match['Status'].values[0] if not match.empty else None
 
 # App title
@@ -86,17 +85,16 @@ if not names_list:
 else:
     st.write("Please mark your attendance below:")
 
-    submission_status = get_submission_status(ip_hash)
-
     with st.form("attendance_form"):
         name = st.selectbox("Select your name", names_list)
-        status = "Present" if submission_status is None else "Absent"
+        status = "Present"
 
         submitted = st.form_submit_button("Submit")
 
         if submitted:
             save_attendance(name, status, ip_hash)
-            st.success(f"Your attendance has been marked:  {name} is {status}!")
+            updated_status = get_submission_status(ip_hash)
+            st.success(f"{name} has been marked as {updated_status}!")
 
 # Display attendance records
 st.write("---")
