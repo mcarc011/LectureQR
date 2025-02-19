@@ -16,7 +16,6 @@ day_of_week = current_date.strftime("%A")
 
 # Define files for attendance
 NAMES_FILE = "TThList.csv"
-print(formatted_date)
 ATTENDANCE_FILE = "TThattendance" + formatted_date + ".csv"
 if day_of_week in ['Monday', 'Wednesday']:
     NAMES_FILE = "MWlist.csv"
