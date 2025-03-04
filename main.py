@@ -25,8 +25,6 @@ if day_of_week == 'Wednesday' and current_date.hour >= 18:
     ATTENDANCE_FILE = "labattendance" + formatted_date + ".csv"
 
 # Dropbox access token
-NAMES_FILE = "MWlist.csv"
-ATTENDANCE_FILE = "MWattendance03-03-25.csv"
 DROPBOX_ACCESS_TOKEN = st.secrets['database']['dbkey']
 
 # Upload to Dropbox
