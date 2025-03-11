@@ -16,10 +16,10 @@ day_of_week = current_date.strftime("%A")
 
 # Define files for attendance
 #NAMES_FILE = "TThList.csv"
-#ATTENDANCE_FILE = "TThattendance" + formatted_date + ".csv"
-#if day_of_week in ['Monday', 'Wednesday']:
-NAMES_FILE = "MWlist.csv"
-ATTENDANCE_FILE = "MWattendance" + formatted_date + ".csv"
+ATTENDANCE_FILE = "TThattendance" + formatted_date + ".csv"
+if day_of_week in ['Monday', 'Wednesday']:
+    NAMES_FILE = "MWlist.csv"
+    ATTENDANCE_FILE = "MWattendance" + formatted_date + ".csv"
 if day_of_week == 'Wednesday' and current_date.hour >= 18:
     NAMES_FILE = "lablist.csv"
     ATTENDANCE_FILE = "labattendance" + formatted_date + ".csv"
