@@ -96,9 +96,8 @@ else:
             st.success(f"{name} has been marked as {updated_status}!")
 
 # Display attendance records
-st.write(current_date)
 st.write("---")
-st.subheader("Attendance Records")
+st.subheader("LAttendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
 attendance_df['Student Num'] = attendance_df['Student Name'].apply(lambda x: names_list.index(x) + 1 if x in names_list else None)
 st.markdown(attendance_df.sort_values(by='Student Num').style.hide(axis="index").to_html(), unsafe_allow_html=True)
