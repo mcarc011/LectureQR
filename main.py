@@ -14,8 +14,6 @@ current_date = datetime.now() - timedelta(hours=60)
 formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
 
-st.write(current_date)
-
 # Define files for attendance
 NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance" + formatted_date + ".csv"
@@ -98,6 +96,7 @@ else:
             st.success(f"{name} has been marked as {updated_status}!")
 
 # Display attendance records
+st.write(current_date)
 st.write("---")
 st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
