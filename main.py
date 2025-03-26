@@ -14,6 +14,8 @@ current_date = datetime.now() - timedelta(hours=60)
 formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
 
+st.write(current_date)
+
 # Define files for attendance
 NAMES_FILE = "TThList.csv"
 ATTENDANCE_FILE = "TThattendance" + formatted_date + ".csv"
