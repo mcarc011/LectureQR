@@ -10,7 +10,7 @@ if 'unique_id' not in st.session_state:
     st.session_state.unique_id = str(uuid.uuid4())
 
 # Get the current date
-current_date = datetime.now() - timedelta(hours=5)
+current_date = datetime.now() - timedelta(day=1)
 formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
 
