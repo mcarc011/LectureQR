@@ -10,7 +10,7 @@ if 'unique_id' not in st.session_state:
     st.session_state.unique_id = str(uuid.uuid4())
 
 # Get the current date
-current_date = datetime.now() - timedelta(hours=60)
+current_date = datetime.now() - timedelta(hours=30)
 formatted_date = current_date.strftime("%m-%d-%y") 
 day_of_week = current_date.strftime("%A")
 
@@ -97,7 +97,7 @@ else:
 
 # Display attendance records
 st.write("---")
-st.subheader("LAttendance Records")
+st.subheader("Attendance Records")
 attendance_df = load_attendance().drop(columns=["IP_Hash"])
 attendance_df['Student Num'] = attendance_df['Student Name'].apply(lambda x: names_list.index(x) + 1 if x in names_list else None)
 st.markdown(attendance_df.sort_values(by='Student Num').style.hide(axis="index").to_html(), unsafe_allow_html=True)
